@@ -7,7 +7,7 @@ import 'settings.dart';
 import 'write_empty.dart';
 import 'create_widget.dart';
 import '../utils/helper.dart';
-import '../utils/api_service.dart';
+import '../services/countdown_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,18 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _items = [...loaded,];
     });
-    try {
-      List<CountdownItem> serverItems = await ApiService.fetchCountdowns();
-      setState(() {
-        _items = serverItems;
-      });
-      await CountdownStorage.saveItems(serverItems);
-    } 
-    catch (e) {
-      // ignore: avoid_print
-      print('Can\'t connect to server: $e');
-    }
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -304,7 +294,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         onDelete: () async {
                           _items.remove(item);
                           await CountdownStorage.saveItems(_items);
-                          await ApiService.deleteCountdown(item.id);
                           setState(() {});
                         },
                       ),
@@ -354,7 +343,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 final items = await CountdownStorage.loadItems();
                 items.add(created);
                 await CountdownStorage.saveItems(items);
-                await ApiService.addCountdown(created);
                 _loadItems();
               }
             },

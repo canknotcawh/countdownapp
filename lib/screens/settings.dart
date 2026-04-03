@@ -1,4 +1,4 @@
-import 'package:countdown_app/utils/helper.dart';
+import '../utils/helper.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {

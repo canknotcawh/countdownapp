@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:countdown_app/models/countdown_item.dart';
-import 'package:countdown_app/widgets/color_picker.dart';
+import '../models/countdown_item.dart';
+import '../widgets/color_picker.dart';
 import '../utils/helper.dart';
 
 class IconPickerDialog extends StatelessWidget {

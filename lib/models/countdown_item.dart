@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'dart:convert';
@@ -120,20 +122,3 @@ class CountdownItem {
   }
 }
 
-class CountdownStorage {
-  static const String key = 'countdown_items';
-
-  static Future<void> saveItems(List<CountdownItem> items) async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonList = items.map((e) => e.toJson()).toList();
-    await prefs.setString(key, jsonEncode(jsonList));
-  }
-
-  static Future<List<CountdownItem>> loadItems() async {
-    final prefs = await SharedPreferences.getInstance();
-    final str = prefs.getString(key);
-    if (str == null) return [];
-    final list = jsonDecode(str) as List;
-    return list.map((e) => CountdownItem.fromJson(e)).toList();
-  }
-}
